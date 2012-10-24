@@ -1,5 +1,6 @@
 <?php
 include "common.php";
+
 $ERR_UNKNOWN = "err_unknown";
 $ERR_SYSTEM = "err_system";
 $ERR_BAD_SIZE = "bad_size";
@@ -119,11 +120,7 @@ function do_upload($user, $field, $type) {
 	return $CODE_SUCCESS;
 }
 
-session_start();
-if (!isset($_SESSION['CA_USER']) || !isset($_SESSION['CA_NAME'])) {
-    header( 'Location: login.php?err=nologin' ) ;
-    exit();
-}
+check_session();
 
 $type = null;
 if ($_POST["uploadtype"] == "photo") {

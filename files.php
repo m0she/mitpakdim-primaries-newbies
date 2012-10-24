@@ -1,8 +1,6 @@
 <?php
-    session_start();
-    if (!isset($_SESSION['CA_USER']) || !isset($_SESSION['CA_NAME'])) {
-            header( 'Location: login.php?err=nologin' ) ;  
-    }
+include "common.php";
+check_session();
 ?>
 <html>
 <head>
