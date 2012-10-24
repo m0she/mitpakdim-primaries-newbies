@@ -1,0 +1,267 @@
+window, body {
+    margin : 0;
+    padding : 0;
+}
+.page_top_bar {
+    background-image : url("./static/header_back.png");
+    background-repeat : repeat;
+    height : 66px;
+    width : 100%;
+    direction : rtl;
+}
+.page_top_bar .content {
+    width : 960px;
+    margin : 0 auto;
+    position : relative;
+    padding-top : 20px;
+}
+.page_top_bar .icons {
+    background-image : url("./static/header_icons.png");
+    height : 62px;
+    width : 234px;
+    position : absolute;
+    top : 2px;
+    left : 10px;
+}
+.page_top_bar .text {
+    background-image : url("./static/header_text.png");
+    height : 38px;
+    width : 552px;
+}
+
+
+#app_root {
+    direction : rtl;
+    font-family : Arial, Helvetica, Sans-serif;
+    vertical-align : top;
+    width : 100%;
+}
+.agendas_section {
+    margin : 0 auto;
+    width : 960px;
+    white-space : nowrap;
+}
+.agendas_section > * {
+    white-space : normal;
+}
+.agendas_container {
+    width : 410px;
+    display : inline-block;
+    vertical-align : top;
+}
+.agendas_container .instructions {
+    margin-right : -27px;
+    background-image : url("./static/instructions.png");
+    height : 130px;
+    width : 465px;
+}
+.agendas {
+    margin-top : 30px;
+}
+.agenda_item {
+    border-width : 0 0 1px 0;
+    border-color : #348dc5;
+    border-style : solid;
+    font-size : 14px;
+    font-weight : 700;
+    padding : 10px 0 15px 0;
+}
+.agenda_item .ui-slider {
+    border-width : 0;
+    margin: 15px auto 0 auto;
+    height : 22px;
+    width : 386px;
+}
+.agenda_item .ui-slider-back {
+    border-width : 0;
+    background-image : url("./static/slider_back.png");
+    height : 22px;
+    width : 408px;
+    position : absolute;
+    top : 0;
+    left : -11px;
+}
+.agenda_item .ui-slider-handle.ui-state-default {
+    border-width : 0;
+    background : none;
+    background-image : url("./static/grey_handle.png");
+    height : 27px;
+    width : 27px;
+    top : -3px;
+    outline : none;
+}
+.agenda_item .ui-slider.plus .ui-slider-handle.ui-state-default {
+    background-image : url("./static/blue_handle.png");
+}
+.agenda_item .ui-slider.minus .ui-slider-handle.ui-state-default {
+    background-image : url("./static/yellow_handle.png");
+    height : 28px;
+    width : 28px;
+}
+.agenda_item .ui-slider .ui-slider-mid-range {
+    background-color : #00507d;
+    height : 20px;
+    position : absolute;
+    top : 1px;
+}
+.agenda_item .ui-slider.minus .ui-slider-mid-range {
+    background-color : #fcbb2b;
+}
+.agenda_item .ui-slider-minus-button {
+    background-image : url("./static/minus_sign.png");
+    position : absolute;
+    top : 0;
+    left : -11px;
+    height : 22px;
+    width : 22px;
+}
+.agenda_item .ui-slider-plus-button {
+    background-image : url("./static/plus_sign.png");
+    position : absolute;
+    top : 0;
+    right : -11px;
+    height : 22px;
+    width : 22px;
+}
+.agenda_item .ui-slider-candidate-marker {
+    background-image : url("./static/candidate_marker.png");
+    position : absolute;
+    top : -13px;
+    z-index : 1;
+    height : 35px;
+    width : 12px;
+}
+
+
+.current_party {
+    width : 100%;
+    margin-bottom : -40px;
+}
+.current_party .current_party_logo {
+    background-image : url("./static/party_logo_back.png");
+    margin : 0 auto;
+    height : 92px;
+    width : 135px;
+    position : relative;
+    z-index : 2;
+}
+.current_party .current_party_name {
+    padding-top : 30px;
+    text-align : center;
+}
+
+.candidates_container {
+    width : 500px;
+    display : inline-block;
+    margin-right : 40px;
+    vertical-align : top;
+}
+.candidates_container .lists_wrapper {
+    border-color : #03527e;
+    border-width : 1px;
+    border-style : solid;
+    box-shadow : 0 0 10px #666;
+    padding-bottom : 20px;
+    position : relative;
+    white-space : nowrap;
+}
+.candidates_container .lists_wrapper .left_background {
+    background-image : url("./static/newbies_back.png");
+    background-repeat : repeat;
+    position  : absolute;
+    left : 0;
+    top : 0;
+    bottom : 0;
+    width : 50%;
+}
+.candidates_container .lists_wrapper > * {
+    white-space : normal;
+}
+.members_container .title,
+.newbies_container .title {
+    color : #03537e;
+    font-size : 14px;
+    font-weight : 400;
+    margin-right : 10px;
+}
+.members_container .title strong,
+.newbies_container .title strong {
+    font-weight : 700;
+}
+.members_container {
+    display : inline-block;
+    width : 50%;
+    padding-top : 40px;
+    vertical-align : top;
+    position : relative;
+}
+.newbies_container {
+    padding-top : 40px;
+    display : inline-block;
+    width : 50%;
+    vertical-align : top;
+    position : relative;
+}
+.candidate_instance {
+    border-color : #03537e;
+    border-width : 0 0 1px 0;
+    border-style : solid;
+    cursor : pointer;
+    margin : 0 10px 0 10px;
+    padding : 5px 0 5px 0;
+    position : relative;
+}
+.candidate_instance .content {
+    min-height : 60px;
+}
+.candidate_instance.selected .content {
+    background-color : #f4f5e9;
+    border-color : #069d4a;
+    border-width : 2px;
+    border-style : solid;
+    border-radius : 4px;
+    min-height : 90px;
+    padding : 5px;
+}
+.candidate_instance.selected .image {
+    height : 80px;
+    width : 60px;
+}
+.candidate_instance .image {
+    background-color : #eee;
+    border-color : #348dc5;
+    border-width : 1px;
+    border-style : solid;
+    border-radius : 2px;
+    float : right;
+    height : 60px;
+    width : 47px;
+    overflow : hidden;
+    margin-left : 10px;
+}
+.candidate_instance .image img {
+    width : 100%;
+}
+.candidate_instance .info {
+    margin-left : 20px;
+}
+.candidate_instance .name {
+    font-size : 14px;
+    font-weight : 700;
+}
+.candidate_instance .role_description {
+    font-size : 12px;
+    font-weight : 400;
+    line-height : 120%;
+}
+.candidate_instance .score {
+    color : #f8b617;
+    font-size : 13px;
+    font-weight : 700;
+    position : absolute;
+    left : 10px;
+    top : 10px;
+}
+.candidate_instance .score.positive {
+    color : #00507d;
+}
