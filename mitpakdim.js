@@ -223,7 +223,8 @@
     AgendaList.prototype.url = "http://www.oknesset.org/api/v2/agenda/";
 
     AgendaList.prototype.syncOptions = {
-      disable_repo: window.mit.agenda
+      disable_repo: window.mit.agenda,
+      sync: root.JSONPCachableSync('agendas')
     };
 
     return AgendaList;
@@ -383,13 +384,16 @@
         };
 
         _Class.prototype.onStop = function(event, ui) {
+          var slider;
+          slider = $(ui.handle).closest('.slider');
           if (ui.value <= 5 && ui.value >= -5) {
-            $(ui.handle).closest('.slider').agendaSlider("value", 0);
+            slider.agendaSlider("value", 0);
             ui.value = 0;
           }
-          return this.model.set({
+          this.model.set({
             uservalue: ui.value
           });
+          return this.trigger('slider_stop', this.model, slider);
         };
 
         _Class.prototype.get_template = function() {
@@ -460,6 +464,7 @@
     AppView.prototype.el = '#app_root';
 
     AppView.prototype.initialize = function() {
+      var _this = this;
       this.bank = new Backbone.Model({
         points_total: 500,
         points_left: 500
@@ -469,6 +474,30 @@
       });
       this.bankView.render();
       this.agendaListView = new root.AgendaListView;
+      return this.agendaListView.on('slider_stop', function(model, slider) {
+        var abs, abs_sum, diff, fixedvalue, left, sign, uservalue, weight_sum;
+        abs_sum = function(arr) {
+          var do_sum;
+          do_sum = function(memo, item) {
+            return memo += Math.abs(item);
+          };
+          return _.reduce(arr, do_sum, 0);
+        };
+        console.log('slider_stop', _this, arguments);
+        weight_sum = abs_sum(_this.agendaListView.getWeights());
+        left = _this.bank.get('points_total') - weight_sum;
+        if (left < 0) {
+          uservalue = model.get('uservalue');
+          abs = Math.abs(uservalue);
+          sign = uservalue / abs;
+          diff = -left;
+          fixedvalue = abs < diff ? 0 : (abs - diff) * sign;
+          model.set('uservalue', fixedvalue);
+          slider.agendaSlider("value", fixedvalue);
+          weight_sum -= Math.abs(uservalue - fixedvalue);
+        }
+        return _this.bank.set('points_left', _this.bank.get('points_total') - weight_sum);
+      });
     };
 
     AppView.prototype.events = {

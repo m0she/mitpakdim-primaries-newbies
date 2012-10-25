@@ -129,6 +129,7 @@ class root.AgendaList extends root.JSONPCollection
     url: "http://www.oknesset.org/api/v2/agenda/"
     syncOptions:
         disable_repo: window.mit.agenda
+        sync: root.JSONPCachableSync('agendas')
 
 ############### VIEWS ##############
 
@@ -198,11 +199,13 @@ class root.AgendaListView extends root.ListView
                     stop : @onStop
                 @
             onStop : (event, ui) =>
+                slider = $(ui.handle).closest('.slider')
                 if ui.value <= 5 and ui.value >= -5
-                    $(ui.handle).closest('.slider').agendaSlider "value", 0
+                    slider.agendaSlider "value", 0
                     ui.value = 0
                 @model.set
                     uservalue : ui.value
+                @trigger 'slider_stop', @model, slider
             get_template: ->
                 $("#agenda_template").html()
 
@@ -237,7 +240,27 @@ class root.AppView extends Backbone.View
             model: @bank
         @bankView.render()
         @agendaListView = new root.AgendaListView
-        return
+        @agendaListView.on 'slider_stop', (model, slider) =>
+            abs_sum = (arr) ->
+                do_sum = (memo, item) ->
+                    memo += Math.abs item
+                _.reduce(arr, do_sum, 0)
+
+            console.log 'slider_stop', @, arguments
+            weight_sum = abs_sum @agendaListView.getWeights()
+            left = @bank.get('points_total') - weight_sum
+            if left < 0
+                # overflown
+                uservalue = model.get 'uservalue'
+                abs = Math.abs uservalue
+                sign = uservalue / abs
+                diff = -left
+                fixedvalue = if abs < diff then 0 else (abs-diff)*sign
+                model.set 'uservalue', fixedvalue
+                slider.agendaSlider "value", fixedvalue
+                weight_sum -= Math.abs(uservalue - fixedvalue)
+
+            @bank.set 'points_left', @bank.get('points_total') - weight_sum
 
     events:
         'click input:button[value=Share]': (event) ->
