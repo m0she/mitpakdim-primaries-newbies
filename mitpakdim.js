@@ -425,6 +425,29 @@
 
   }).call(this, root.ListView);
 
+  root.WeightBankView = (function(_super) {
+
+    __extends(WeightBankView, _super);
+
+    function WeightBankView() {
+      return WeightBankView.__super__.constructor.apply(this, arguments);
+    }
+
+    WeightBankView.prototype.el = '.weight_bank';
+
+    WeightBankView.prototype.initialize = function() {
+      WeightBankView.__super__.initialize.apply(this, arguments);
+      return this.model.on('change', this.render);
+    };
+
+    WeightBankView.prototype.get_template = function() {
+      return $("#bank_template").html();
+    };
+
+    return WeightBankView;
+
+  })(root.TemplateView);
+
   root.AppView = (function(_super) {
 
     __extends(AppView, _super);
@@ -437,6 +460,14 @@
     AppView.prototype.el = '#app_root';
 
     AppView.prototype.initialize = function() {
+      this.bank = new Backbone.Model({
+        points_total: 500,
+        points_left: 500
+      });
+      this.bankView = new root.WeightBankView({
+        model: this.bank
+      });
+      this.bankView.render();
       this.agendaListView = new root.AgendaListView;
     };
 

@@ -218,10 +218,24 @@ class root.AgendaListView extends root.ListView
             weights[agenda.id] = agenda.get("uservalue")
         weights
 
+class root.WeightBankView extends root.TemplateView
+    el: '.weight_bank'
+    initialize: ->
+        super(arguments...)
+        @model.on 'change', @render
+    get_template: ->
+        $("#bank_template").html()
+
 class root.AppView extends Backbone.View
     el: '#app_root'
 
     initialize: =>
+        @bank = new Backbone.Model
+            points_total: 500
+            points_left: 500
+        @bankView = new root.WeightBankView
+            model: @bank
+        @bankView.render()
         @agendaListView = new root.AgendaListView
         return
 
