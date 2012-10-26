@@ -483,7 +483,6 @@
           };
           return _.reduce(arr, do_sum, 0);
         };
-        console.log('slider_stop', _this, arguments);
         weight_sum = abs_sum(_this.agendaListView.getWeights());
         left = _this.bank.get('points_total') - weight_sum;
         if (left < 0) {
@@ -501,8 +500,37 @@
     };
 
     AppView.prototype.events = {
-      'click input:button[value=Share]': function(event) {
-        return root.facebookShare(getShareLink(this.agendaListView.getWeights()));
+      'click input:button#update': function(event) {
+        var encoded, setStatus,
+          _this = this;
+        encoded = encode_weights(this.agendaListView.getWeights());
+        setStatus = function(status) {
+          var set;
+          set = function(text) {
+            return this.$('.update_data .status').html(text);
+          };
+          switch (status) {
+            case 'updating':
+              return set('&#1502;&#1506;&#1491;&#1499;&#1503;...');
+            case 'success':
+              return set('&#1504;&#1513;&#1502;&#1512;');
+            case 'error':
+              return set('&#1513;&#1490;&#1497;&#1488;&#1492;&#32;&#1489;&#1513;&#1502;&#1497;&#1512;&#1492;&#32;&#45;&#32;&#1488;&#1504;&#1488;&#32;&#1492;&#1514;&#1495;&#1489;&#1512;&#32;&#1502;&#1495;&#1491;&#1513;&#32;&#1493;&#1504;&#1505;&#1492;&#32;&#1513;&#1504;&#1497;&#1514;&#10;');
+          }
+        };
+        setStatus('updating');
+        return $.post('update_agendas.php', {
+          agendas: encoded
+        }).done(function(resp, status) {
+          if (resp.type === 'success') {
+            setStatus('success');
+            return window.location.href = 'candidate.php';
+          } else {
+            return setStatus('error');
+          }
+        }).fail(function() {
+          return setStatus('error');
+        });
       },
       'click input:button#show_weights': function(event) {
         var instructions;

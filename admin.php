@@ -70,7 +70,7 @@ function print_column_files_info($row, $allow_delete) {
 }
 
 function print_column_agenda($row, $allow_delete) {
-	if ($row['CA_HAS_AGENDA'])
+	if ($row['CA_AGENDAS'])
 		echo "<td><a onclick=\"\" style=\"cursor:pointer\">לחץ לפירוט</a></td>";
 	else
 		echo "<td>אין</td>";

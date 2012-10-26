@@ -42,12 +42,16 @@
                 </div>
             </div>
             <br/>
+            <div class='update_data'>
+                <input type="button" value="&#1506;&#1491;&#1499;&#1503;" id="update" />
+                <span class="status"></span>
+            </span>
             <input type="button" value="&#1492;&#1510;&#1490; &#1502;&#1513;&#1511;&#1493;&#1500;&#1493;&#1514;" id="show_weights" />
         </div>
         <script type="text/template" id='agenda_template'>
             <a href="http://oknesset.org<%= absolute_url %>" target="_blank" class="name"><%= name %></a>
             <div class="current_value"></div>
-            <div class="slider" id="agenda_<%= id %>"></div> 
+            <div class="slider" id="agenda_<%= id %>"></div>
         </script>
         <script type="text/template" id='bank_template'>
             &#x5DC;&#x5E8;&#x5E9;&#x5D5;&#x5EA;&#x5DA; &#x5E2;&#x5D5;&#x5D3; <%= points_left %> &#x5E0;&#x5E7;&#x5D5;&#x5D3;&#x5D5;&#x5EA;

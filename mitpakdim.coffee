@@ -246,7 +246,6 @@ class root.AppView extends Backbone.View
                     memo += Math.abs item
                 _.reduce(arr, do_sum, 0)
 
-            console.log 'slider_stop', @, arguments
             weight_sum = abs_sum @agendaListView.getWeights()
             left = @bank.get('points_total') - weight_sum
             if left < 0
@@ -263,8 +262,26 @@ class root.AppView extends Backbone.View
             @bank.set 'points_left', @bank.get('points_total') - weight_sum
 
     events:
-        'click input:button[value=Share]': (event) ->
-            root.facebookShare getShareLink @agendaListView.getWeights()
+        'click input:button#update': (event) ->
+            encoded = encode_weights @agendaListView.getWeights()
+            setStatus = (status) ->
+                set = (text) ->
+                    @$('.update_data .status').html(text);
+
+                switch status
+                    when 'updating' then set '&#1502;&#1506;&#1491;&#1499;&#1503;...'
+                    when 'success' then set '&#1504;&#1513;&#1502;&#1512;'
+                    when 'error' then set '&#1513;&#1490;&#1497;&#1488;&#1492;&#32;&#1489;&#1513;&#1502;&#1497;&#1512;&#1492;&#32;&#45;&#32;&#1488;&#1504;&#1488;&#32;&#1492;&#1514;&#1495;&#1489;&#1512;&#32;&#1502;&#1495;&#1491;&#1513;&#32;&#1493;&#1504;&#1505;&#1492;&#32;&#1513;&#1504;&#1497;&#1514;&#10;'
+            setStatus 'updating'
+            $.post('update_agendas.php', agendas: encoded).done (resp, status) =>
+                if resp.type == 'success'
+                    setStatus 'success'
+                    window.location.href = 'candidate.php'
+                else
+                    setStatus 'error'
+            .fail ->
+                setStatus 'error'
+
         'click input:button#show_weights': (event) ->
             instructions = "\u05DC\u05D4\u05E2\u05EA\u05E7\u05D4\u0020\u05DC\u05D7\u05E5\u0020\u05E2\u05DC\u0020\u05E6\u05D9\u05E8\u05D5\u05E3\u0020\u05D4\u05DE\u05E7\u05E9\u05D9\u05DD\u000A\u0043\u0074\u0072\u006C\u002B\u0043"
             window.prompt instructions, encode_weights @agendaListView.getWeights()

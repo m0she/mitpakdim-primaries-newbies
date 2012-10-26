@@ -257,7 +257,7 @@ function get_candidate_status($user) {
 			$image = $row["CA_FILE_IMAGE"];
 			$cv = $row["CA_FILE_CV"];
 			$zehut = $row["CA_FILE_ZEHUT"];
-			$agenda = $row["CA_HAS_AGENDA"];
+			$agenda = $row["CA_AGENDAS"];
 			$completed = $row["CA_COMPLETED"];
 			
 			if ($completed != null) {
@@ -269,7 +269,7 @@ function get_candidate_status($user) {
 				       ($image == null ? 'false' : 'true'),
 				       ($cv == null ? 'false' : 'true'),
 				       ($zehut == null ? 'false' : 'true'),
-				       ($agenda == '0' ? 'false' : 'true'));
+				       ($agenda ? 'false' : 'true'));
 			}
 		} else {
 			mysql_close($con);
