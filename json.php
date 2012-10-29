@@ -36,6 +36,7 @@ $fields_names = array(
     'CA_ID' => 'id',
     'PA_NAME_HE' => 'party_name',
     'RE_NAME_HE' => 'district',
+    'CA_AGENDAS' => 'agendas',
 );
 
 function do_fields_dict($data, $output) {
