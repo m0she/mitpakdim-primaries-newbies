@@ -10,6 +10,15 @@ function check_session() {
     }
 }
 
+function connecti() {
+    global $settings;
+    $db = $settings["db"]["readwrite"];
+    $con = mysqli_connect($db["hostname"],$db["username"], $db["password"]) OR DIE ("{ type: 'error', msg: 'DB_CONN' }");
+	mysqli_select_db($con, $db["dbname"]);
+	mysqli_query($con, "SET NAMES utf8");
+    return $con;
+}
+
 function connect() {
     global $settings;
     $db = $settings["db"]["readwrite"];

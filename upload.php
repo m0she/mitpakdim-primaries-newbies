@@ -84,7 +84,7 @@ function do_upload($user, $field, $type) {
 
 	$extension = end(explode(".", $_FILES[$field]["name"]));
 	
-	$con = connect();
+	$con = connecti();
 	
 	if (($_FILES[$field]["size"] <= $allowedSize) && in_array($extension, $allowedExts)) {
 		if ($_FILES[$field]["error"] > 0) {
