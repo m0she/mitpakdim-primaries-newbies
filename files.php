@@ -67,7 +67,9 @@ check_session();
 		?>
         <u>תמונה</u><br/>
 		<b><span id="lblImageStatus" style="font-size:12pt"></span></b>
-        יש להעלות תמונה בגודל XXXxXXX פיקסלים בדיוק (העלאת תמונה בגודל שאינו תקין תגרום לעיוות תמונתך בעיני הבוחרים)<br/>
+        יש להעלות תמונה בגודל
+        <span dir="ltr">75 x 110</span> פיקסלים בדיוק (העלאת תמונה בגודל שאינו תקין תגרום לעיוות תמונתך בעיני הבוחרים) 
+        <br/>
         <form action="upload.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="uploadtype" value="photo"/>
             <input type="file" name="file" id="photo"/>
