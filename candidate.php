@@ -9,6 +9,8 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<title>רישום למועמדים חדשים</title>
+    <script type="text/javascript" src="lib/underscore-1.4.2.js"></script>
+    <script type="text/javascript" src="lib/jquery-1.8.2.js"></script>
 	<script type="text/javascript" src="candidates.js"></script>
 	<script type="text/javascript">
 	function load() {
@@ -48,6 +50,25 @@
 			}
 		}
 	}
+    function approve () {
+        var $button = $('#divComplete input:button');
+        $button[0].disabled = true;
+        $button.after('<span id="approve_status">שולח...</span>');
+        function setStatus(status) {
+            var text = status ? 'תודה!' : 'ארעה שגיעה, אנא טען מחדש את העמוד ונסה שנית';
+            $('#approve_status').text(text);
+        }
+        $.post('candidate_complete.php').done(function(resp, status) {
+            if (resp.type == 'success') {
+                setStatus(true);
+            } else {
+                setStatus(false);
+            }
+        }).fail(function(resp, status) {
+            setStatus(false);
+        });
+    }
+
 	</script>
 </head>
 <body dir="rtl" style="font-family:Helvetica,Arial;font-size:12pt" onload="load();">
