@@ -37,6 +37,8 @@ $fields_names = array(
     'PA_NAME_HE' => 'party_name',
     'RE_NAME_HE' => 'district',
     'CA_AGENDAS' => 'agendas',
+    'CA_FILE_IMAGE' => 'img_url',
+    'CA_FILE_CV' => 'resume_link_url',
 );
 
 function do_fields_dict($data, $output) {
@@ -53,11 +55,13 @@ function do_name($data, $output) {
     return $output;
 }
 
-function do_img($data, $output) {
-    if ($data['CA_FILE_IMAGE']) {
-        $output['img_url'] = str_replace(
-            'json.php', 
-            'cand_data/' . $data['CA_FILE_IMAGE'],
+$relatives = array('img_url', 'resume_link_url');
+function do_relative_url($data, $output) {
+    global $relatives;
+    foreach(array_values($relatives) as $relative_field) {
+        $output[$relative_field] = str_replace(
+            'json.php',
+            'cand_data/' . $output[$relative_field],
             $_SERVER['SCRIPT_URI']
         );
     }
@@ -66,7 +70,7 @@ function do_img($data, $output) {
 
 function conversion($obj) {
     $new_obj = array();
-    $convertors = array('do_fields_dict', 'do_name', 'do_links', 'do_img');
+    $convertors = array('do_fields_dict', 'do_name', 'do_links', 'do_relative_url');
     foreach(array_values($convertors) as $convertor) {
         $new_obj = call_user_func($convertor, $obj, $new_obj);
     }
