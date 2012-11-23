@@ -50,6 +50,11 @@ function do_fields_dict($data, $output) {
     return $output;
 }
 
+function do_placeholder($data, $output) {
+    $output['is_placeholder'] = (bool)$data['CA_EMPTY'];
+    return $output;
+}
+
 function do_name($data, $output) {
     $output['name'] = $data['CA_FNAME'] . ' ' . $data['CA_LNAME'];
     return $output;
@@ -70,7 +75,7 @@ function do_relative_url($data, $output) {
 
 function conversion($obj) {
     $new_obj = array();
-    $convertors = array('do_fields_dict', 'do_name', 'do_links', 'do_relative_url');
+    $convertors = array('do_fields_dict', 'do_name', 'do_links', 'do_relative_url', 'do_placeholder');
     foreach(array_values($convertors) as $convertor) {
         $new_obj = call_user_func($convertor, $obj, $new_obj);
     }
