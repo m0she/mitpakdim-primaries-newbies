@@ -197,9 +197,9 @@ function resend_confirmation($user) {
 
 function send_confirm_mail($email, $name, $user, $confkey) {
 	// multiple recipients
-	$from = "מתפקדים <info@mitpakdim.co.il>";
+	$from = "מתפקדים <primaries@mitpakdim.co.il>";
 	$to  = $email;
-	$bcc = "info@mitpakdim.co.il";
+	$bcc = "primaries@mitpakdim.co.il";
 
 	// subject
 	$subject = 'רישום למערכת פריימריז';
@@ -223,7 +223,7 @@ function send_confirm_mail($email, $name, $user, $confkey) {
 	  לאחר השלמת כל הפרטים והמסמכים הדרושים, יש לאשר את הפרופיל על מנת ששמך יופיע בתוצאות המוצגות למשתמשים במערכת.<br/>
 	  <b>חשוב להשלים את הפרטים ולאשרם מוקדם ככל האפשר!</b><br/>
 	  <br/>
-	  בכל שאלה, אנא פנו אלינו במייל info@mitpakdim.co.il.<br/>
+	  בכל שאלה, אנא פנו אלינו במייל primaries@mitpakdim.co.il.<br/>
 	  <br/>
 	  בברכה,<br/>
 	  צוות "מתפקדים" ו"כנסת פתוחה"
@@ -269,7 +269,7 @@ function get_candidate_status($user) {
 				       ($image == null ? 'false' : 'true'),
 				       ($cv == null ? 'false' : 'true'),
 				       ($zehut == null ? 'false' : 'true'),
-				       ($agenda ? 'false' : 'true'));
+				       (($agenda == null or empty($agenda)) ? 'false' : 'true'));
 			}
 		} else {
 			mysql_close($con);
