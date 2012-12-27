@@ -127,7 +127,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>דואר אלקטרוני:</td>
+			<td>דואר אלקטרוני פעיל לצורך אישור:</td>
 			<td><input type="text" name="email" id="email" size="30"/></td>
 		</tr>
 		<tr>
