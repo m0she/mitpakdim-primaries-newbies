@@ -56,7 +56,11 @@ function do_placeholder($data, $output) {
 }
 
 function do_name($data, $output) {
-    $output['name'] = $data['CA_FNAME'] . ' ' . $data['CA_LNAME'];
+    $name = $data['CA_FNAME'];
+    if ($data['CA_LNAME']) {
+        $name = $name . ' ' . $data['CA_LNAME'];
+    }
+    $output['name'] = $name;
     return $output;
 }
 
