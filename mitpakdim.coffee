@@ -266,17 +266,17 @@ class root.AppView extends Backbone.View
             encoded = encode_weights @agendaListView.getWeights()
             setStatus = (status) ->
                 set = (text) ->
-                    @$('.update_data .status').html(text);
+                    @$('.update_data .status').text(text);
 
                 switch status
-                    when 'updating' then set '&#1502;&#1506;&#1491;&#1499;&#1503;...'
-                    when 'success' then set '&#1504;&#1513;&#1502;&#1512;'
-                    when 'error' then set '&#1513;&#1490;&#1497;&#1488;&#1492;&#32;&#1489;&#1513;&#1502;&#1497;&#1512;&#1492;&#32;&#45;&#32;&#1488;&#1504;&#1488;&#32;&#1492;&#1514;&#1495;&#1489;&#1512;&#32;&#1502;&#1495;&#1491;&#1513;&#32;&#1493;&#1504;&#1505;&#1492;&#32;&#1513;&#1504;&#1497;&#1514;&#10;'
+                    when 'updating' then set 'מעדכן...'
+                    when 'success' then set 'נשמר - תודה!'
+                    when 'error' then set 'שגיאה בשמירה - אנא התחבר מחדש ונסה שנית'
             setStatus 'updating'
             $.post('update_agendas.php', agendas: encoded).done (resp, status) =>
                 if resp.type == 'success'
                     setStatus 'success'
-                    window.location.href = 'candidate.php'
+                    #window.location.href = 'candidate.php'
                 else
                     setStatus 'error'
             .fail ->

@@ -1,7 +1,11 @@
 <?php
 include "common.php";
+function success_redir() {
+	header( 'Location: base.html' ) ;
+}
+
 if (isset($_SESSION['CA_USER']) && isset($_SESSION['CA_NAME'])) {
-	header( 'Location: candidate.php' ) ;
+    success_redir();
 } else {
     $con = connect();
 	if (!$con) {
@@ -26,7 +30,7 @@ if (isset($_SESSION['CA_USER']) && isset($_SESSION['CA_NAME'])) {
 		if ($row = mysql_fetch_array($result)) {
 			$_SESSION['CA_USER'] = $user;
 			$_SESSION['CA_NAME'] = $row['CA_FNAME'] . ' ' . $row['CA_LNAME'];
-			header( 'Location: candidate.php' ) ;
+            success_redir();
 		} else {
 			header( 'Location: login.php?err=bad_login' ) ;
 		}
